@@ -5,13 +5,19 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 let expressHbs = require('express-handlebars')
 let mongoose = require('mongoose')
+let session = require('express-session')
+let passport = require('passport')
+let flash = require('connect-flash')
+let validator = require('express-validator')
+var app = express()
 
 let connection = 'localhost:27017/animal'
 mongoose.connect(connection)
-var routes = require('./routes/index')
-var users = require('./routes/users')
+require('./config/passport')
 
-var app = express()
+var routes = require('./routes/index')
+var user = require('./routes/user')
+
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}))
@@ -21,11 +27,16 @@ app.set('view engine', '.hbs')
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(validator())
 app.use(cookieParser())
+app.use(session({secret: 'secretAnimal', resave: false, saveUninitialized: false}))
+app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', routes)
-app.use('/users', users)
+app.use('/user', user)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
