@@ -1,2 +1,15 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="row">
+  {{#each animals}}
+    {{#each this}}
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="thumbnail clearfix">
+        <a href="#">
+          <img class="img-responsive" src="{{this.imagePath}}" alt="...">
+        </a>
+        <p>{{this.age}}months</p>
+        <p class="desc">{{this.description}}</p>
+      </div>
+    </div>
+    {{/each}}
+  {{/each}}
+</div>
