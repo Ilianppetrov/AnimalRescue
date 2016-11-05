@@ -6,23 +6,31 @@ let passport = require('passport')
 let csrfProtection = csrf()
 router.use(csrfProtection)
 
-/* GET users listing. */
+router.get('/profile', isLoggedIn, (req, res, next) => {
+  res.render('../views/users/profile')
+})
+router.get('/logout', isLoggedIn, (req, res, next) => {
+  req.logout()
+  res.redirect('/')
+})
+router.use('/', isNotLoggedIn)
+
 router.get('/signup', (req, res, next) => {
   let messages = req.flash('error')
   res.render('../views/users/signup', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
 })
+
 router.post('/signup', passport.authenticate('local.signup', {
   successRedirect: '/user/profile',
   failureRedirect: '/user/signup',
   failureFlash: true
 }))
-router.get('/profile', (req, res, next) => {
-  res.render('../views/users/profile')
-})
+
 router.get('/signin', (req, res, next) => {
   let messages = req.flash('error')
   res.render('../views/users/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
 })
+
 router.post('/signin', passport.authenticate('local.signin', {
   successRedirect: '/user/profile',
   failureRedirect: '/user/signin',
@@ -31,3 +39,16 @@ router.post('/signin', passport.authenticate('local.signin', {
 
 module.exports = router
 
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('/user/signin')
+}
+
+function isNotLoggedIn (req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('/')
+}

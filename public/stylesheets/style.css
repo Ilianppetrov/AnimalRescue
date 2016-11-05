@@ -1,3 +1,7 @@
 .thumbnail img {
   min-height: 280px
 }
+#body {
+  background-image: url('../images/background.jpg');
+  background-repeat: repeat
+}
