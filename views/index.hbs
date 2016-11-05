@@ -3,11 +3,11 @@
     {{#each this}}
     <div class="col-xs-12 col-sm-6 col-md-4">
       <div class="thumbnail clearfix">
-        <a href="#">
+        <a href="/animal/profile/{{this.id}}">
           <img class="img-responsive" src="{{this.imagePath}}" alt="...">
         </a>
         <p>{{this.age}}months</p>
-        <p class="desc">{{this.description}}</p>
+        <p id="description" class="desc">{{this.description}}</p>
       </div>
     </div>
     {{/each}}

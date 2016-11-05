@@ -2,6 +2,19 @@
   min-height: 280px
 }
 #body {
-  background-image: url('../images/background.jpg');
+  background-image: url('../images/background2.jpg');
   background-repeat: repeat
+}
+#logo {
+  max-width: 160%;
+  max-height: 160%;
+  margin-top: -5px
+}
+#description {
+  max-height: 40px;
+  overflow: hidden
+}
+.animal-image {
+  min-width: 100%;
+  min-height: 100%
 }

@@ -1,0 +1,17 @@
+{{# if data}}
+<div class="row">
+  <div class="col-xs-12 col-md-6">  
+    <img class="img-responsive animal-image" src="{{data.imagePath}}" alt="">
+  </div>
+  <div class="col-xs-12 col-md-6">  
+    <p>name: {{data.name}}</p>
+    <p>Age: {{data.age}}</p>
+    <p>Description: {{data.description}}</p>
+  </div>
+  {{# if login}}
+  <form action="#">
+    <button class="btn btn-primary">Send</button>
+  </form>
+  {{/if}}
+</div>
+{{/if}}

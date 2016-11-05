@@ -6,6 +6,7 @@ var bodyParser = require('body-parser')
 let expressHbs = require('express-handlebars')
 let mongoose = require('mongoose')
 let session = require('express-session')
+let MongoStore = require('connect-mongo')(session)
 let passport = require('passport')
 let flash = require('connect-flash')
 let validator = require('express-validator')
@@ -17,6 +18,7 @@ require('./config/passport')
 
 var routes = require('./routes/index')
 var user = require('./routes/user')
+var animal = require('./routes/animal')
 
 
 // view engine setup
@@ -29,7 +31,13 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(validator())
 app.use(cookieParser())
-app.use(session({secret: 'secretAnimal', resave: false, saveUninitialized: false}))
+app.use(session({
+  secret: 'secretAnimal',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
+  cookie: {maxAge: 180 * 60 * 1000}
+}))
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
@@ -37,10 +45,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use((req, res, next) => {
   res.locals.login = req.isAuthenticated()
+  res.locals.session = req.session
   next()
 })
 app.use('/', routes)
 app.use('/user', user)
+app.use('/animal', animal)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
