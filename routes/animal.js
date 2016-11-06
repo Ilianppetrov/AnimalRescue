@@ -34,9 +34,23 @@ router.get('/add', (req, res, next) => {
 })
 
 router.post('/add', upload.single('image'), (req, res, next) => {
-  console.log(req.file)
+  req.checkBody('name', 'Invalid name').notEmpty()
+  req.checkBody('age', 'We need age').notEmpty()
+  req.checkBody('description', 'Description not enough').notEmpty().isLength({min: 3})
+  let errors = req.validationErrors()
+  if (errors) {
+    let messages = []
+    errors.forEach((error) => {
+      messages.push(error.msg)
+    })
+    return res.render('../views/animal/animal-add.hbs', {messages: messages, hasErrors: messages.length > 0})
+  }
+  if (!req.file) {
+    return res.render('../views/animal/animal-add.hbs', {messages: ['Uploading image is required'], hasErrors: true})
+  }
   addingAnimal.addAnimal(req.body, req.file, req.session.passport.user)
   res.redirect('/')
 })
+
 
 module.exports = router
