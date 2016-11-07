@@ -12,7 +12,7 @@ module.exports.addAnimal = (obj, obj2, id) => {
     if (err) console.log(err)
     animal.addedBy = user
     animal.save()
-    user.animals = [animal]
+    user.animals.push(animal)
     user.save()
   })
 }

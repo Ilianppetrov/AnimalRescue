@@ -21,7 +21,6 @@ let upload = multer({storage: storage})
 router.get('/profile/:id', (req, res, next) => {
   let animalId = req.params.id
   Animal.findById(animalId, (err, data) => {
-    console.log(data)
     if (err) {
       res.render('/')
     }
@@ -36,7 +35,7 @@ router.get('/add', (req, res, next) => {
 router.post('/add', upload.single('image'), (req, res, next) => {
   req.checkBody('name', 'Invalid name').notEmpty()
   req.checkBody('age', 'We need age').notEmpty()
-  req.checkBody('description', 'Description not enough').notEmpty().isLength({min: 3})
+  req.checkBody('description', 'Description not enough').isLength({min: 10})
   let errors = req.validationErrors()
   if (errors) {
     let messages = []

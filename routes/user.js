@@ -2,6 +2,8 @@ var express = require('express')
 var router = express.Router()
 let csrf = require('csurf')
 let passport = require('passport')
+// let animalsArray = require('../config/render-animals')
+let animalArray = require('../config/render-animals')
 
 let csrfProtection = csrf()
 router.use('/', csrfProtection)
@@ -10,6 +12,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
   res.render('../views/users/profile')
 })
 router.get('/animals', isLoggedIn, (req, res, next) => {
+  console.log(animalArray.toArray(req.user._doc.username))
   res.render('../views/users/animals', {})
 })
 router.get('/logout', isLoggedIn, (req, res, next) => {
