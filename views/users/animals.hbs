@@ -4,9 +4,9 @@
       {{#each animals}}
       <ul class="list-group">
         <li class="list-group-item row">
-          <span class="col-md-2 myAnnimalsName"><strong>{{this.name}}</strong></span>
-          <a href="#" class="btn btn-primary col-md-2 col-md-offset-6">Edit</a>
-          <a href="/animal/delete/{{this._id}}" class="btn btn-danger col-md-2 confirm-alert">Delete</a>
+          <span class="col-md-2 col-xs-2 myAnnimalsName"><strong>{{this.name}}</strong></span>
+          <a href="#" class="btn btn-primary col-md-2 col-md-offset-6 col-xs-2 col-xs-offset-5">Edit</a>
+          <a href="/animal/delete/{{this._id}}" class="btn btn-danger col-md-2 confirm-alert col-xs-2">Delete</a>
         </li>
       </ul>
       {{/each}}
@@ -15,7 +15,7 @@
 {{/if}}
 {{# if noAnimals}}
   <div class="row">
-    <div class="col-md-6 col-md-offset-4">
+    <div class="col-md-6 col-md-offset-4 col-xs-10 col-xs-offset-1">
         <h1>No Animals added</h1>
    </div>
   </div>

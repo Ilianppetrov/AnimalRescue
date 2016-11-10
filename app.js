@@ -19,6 +19,7 @@ require('./config/passport')
 var routes = require('./routes/index')
 var user = require('./routes/user')
 var animal = require('./routes/animal')
+var message = require('./routes/message')
 
 
 // view engine setup
@@ -48,9 +49,11 @@ app.use((req, res, next) => {
   res.locals.session = req.session
   next()
 })
+
 app.use('/', routes)
 app.use('/user', user)
 app.use('/animal', animal)
+app.use('/message', message)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

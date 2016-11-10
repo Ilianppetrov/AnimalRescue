@@ -26,7 +26,11 @@ router.get('/profile/:id', (req, res, next) => {
     if (err) {
       res.render('/')
     }
-    res.render('../views/animal/animal-profile.hbs', {data: data})
+    req.animalId = req.param.id
+    if (req.session.passport.user == data._doc.addedBy) {
+      return res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: false})
+    }
+    res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: true})
   })
 })
 
@@ -59,8 +63,7 @@ router.get('/delete/:id', (req, res, next) => {
   Animal.findByIdAndRemove(deleteId, (err, animal) => {
     if (err) console.log(err)
     fs.unlink('public\\' + animal.imagePath, (err, result) => {
-      console.log(err)
-      console.log(result)
+      if (err) console.log(err)
     })
   })
   res.redirect('/user/animals')

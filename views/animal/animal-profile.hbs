@@ -8,10 +8,12 @@
     <p>Age: {{data.years}} years {{data.months}} months old</p>
     <p>Description: {{data.description}}</p>
   </div>
-  {{# if login}}
-  <form action="#">
-    <button class="btn btn-primary">Send</button>
-  </form>
+  {{# if notOwner}}
+    {{# if login}}
+    <form action="/message/send/{{data._id}}">
+      <button class="btn btn-primary">Send</button>
+    </form>
+    {{/if}}
   {{/if}}
 </div>
 {{/if}}
