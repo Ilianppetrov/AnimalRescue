@@ -6,8 +6,9 @@
         <a href="/animal/profile/{{this.id}}">
           <img class="img-responsive" src="/{{this.imagePath}}" alt="...">
         </a>
-        <p>{{this.age}}months</p>
-        <p id="description" class="desc">{{this.description}}</p>
+        <p class="animal-name pull-left">{{this.name}}</p>
+        <p class="animal-age pull-right">{{this.months}} months</p>
+        <p class="animal-age pull-right">{{this.years}} years</p>
       </div>
     </div>
     {{/each}}

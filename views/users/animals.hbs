@@ -1,1 +1,22 @@
-<p>My Animals</p>
+{{# if hasAnimals}}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {{#each animals}}
+      <ul class="list-group">
+        <li class="list-group-item row">
+          <span class="col-md-2 myAnnimalsName"><strong>{{this.name}}</strong></span>
+          <a href="#" class="btn btn-primary col-md-2 col-md-offset-6">Edit</a>
+          <a href="/animal/delete/{{this._id}}" class="btn btn-danger col-md-2 confirm-alert">Delete</a>
+        </li>
+      </ul>
+      {{/each}}
+   </div>
+  </div>
+{{/if}}
+{{# if noAnimals}}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-4">
+        <h1>No Animals added</h1>
+   </div>
+  </div>
+{{/if}}

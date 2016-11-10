@@ -2,7 +2,9 @@ var express = require('express')
 var router = express.Router()
 // let csrf = require('csurf')
 let multer = require('multer')
+let fs = require('fs')
 let Animal = require('../models/animal')
+let User = require('../models/user')
 let addingAnimal = require('../config/add-animal')
 
 let storage = multer.diskStorage({
@@ -34,7 +36,6 @@ router.get('/add', (req, res, next) => {
 
 router.post('/add', upload.single('image'), (req, res, next) => {
   req.checkBody('name', 'Invalid name').notEmpty()
-  req.checkBody('age', 'We need age').notEmpty()
   req.checkBody('description', 'Description not enough').isLength({min: 10})
   let errors = req.validationErrors()
   if (errors) {
@@ -44,11 +45,25 @@ router.post('/add', upload.single('image'), (req, res, next) => {
     })
     return res.render('../views/animal/animal-add.hbs', {messages: messages, hasErrors: messages.length > 0})
   }
+  if (!req.body.year && !req.body.month) {
+    return res.render('../views/animal/animal-add.hbs', {messages: ['We need some age'], hasErrors: true})
+  }
   if (!req.file) {
     return res.render('../views/animal/animal-add.hbs', {messages: ['Uploading image is required'], hasErrors: true})
   }
   addingAnimal.addAnimal(req.body, req.file, req.session.passport.user)
   res.redirect('/')
+})
+router.get('/delete/:id', (req, res, next) => {
+  let deleteId = req.params.id
+  Animal.findByIdAndRemove(deleteId, (err, animal) => {
+    if (err) console.log(err)
+    fs.unlink('public\\' + animal.imagePath, (err, result) => {
+      console.log(err)
+      console.log(result)
+    })
+  })
+  res.redirect('/user/animals')
 })
 
 

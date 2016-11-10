@@ -6,7 +6,8 @@ module.exports.addAnimal = (obj, obj2, id) => {
     imagePath: 'images/' + obj2.filename,
     name: obj.name,
     description: obj.description,
-    age: obj.age
+    years: obj.year || 0,
+    months: obj.month || 0
   })
   User.findById(id, (err, user) => {
     if (err) console.log(err)
