@@ -14,9 +14,10 @@ module.exports.addMessage = (senderId, animalId, content) => {
   })
   Animal.findById(animalId, (err, animal) => {
     if (err) console.log(err)
+    message.about = animal
     User.findById(animal.addedBy, (err, receiver) => {
       if (err) console.log(err)
-      receiver.messagesRecieved.push(message)
+      receiver.messagesReceived.push(message)
       receiver.save()
       message.receivedBy = receiver
       message.save()

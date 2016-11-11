@@ -30,4 +30,8 @@
   margin-bottom: 0px;
   margin-top: 5px;
   margin-right: 10px
+} 
+.unseen.panel-heading {
+  background-color: #337ab7;
+  color: white
 }

@@ -8,7 +8,7 @@ let userSchema = mongoose.Schema({
   password: { type: String, require: true },
   animals: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Animal' }],
   messagesSend: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
-  messagesRecieved: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }]
+  messagesReceived: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }]
 })
 userSchema.methods.encryptPassword = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null)
