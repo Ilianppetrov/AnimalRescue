@@ -2,8 +2,12 @@ var express = require('express')
 var router = express.Router()
 let addMessage = require('../config/add-message')
 let allMessages = require('../config/all-messages')
+let changeStatus = require('../config/change-status')
 
-
+router.post('/change/:id', (req, res, next) => {
+  changeStatus(req.params.id)
+  res.sendStatus(200)
+})
 router.get('/all', (req, res, next) => {
   allMessages(req.session.passport.user).then((messages) => {
     res.render('../views/messages/my-messages.hbs', {messages: messages})

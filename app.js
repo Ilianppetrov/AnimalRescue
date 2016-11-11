@@ -20,6 +20,7 @@ var routes = require('./routes/index')
 var user = require('./routes/user')
 var animal = require('./routes/animal')
 var message = require('./routes/message')
+let headerData = require('./config/header-data')
 
 
 // view engine setup
@@ -42,6 +43,7 @@ app.use(session({
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(headerData)
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use((req, res, next) => {

@@ -11,6 +11,7 @@ router.get('/', (req, res, next) => {
     for (let i = 0; i < data.length; i += chunkSize) {
       animalChunks.push(data.slice(i, i + chunkSize))
     }
+    req.session.newMessages = 30
     res.render('index', { title: 'Hello', animals: animalChunks })
   })
 })

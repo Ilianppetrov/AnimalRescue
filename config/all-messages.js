@@ -13,12 +13,11 @@ module.exports = (id) => {
         (function (messageId, index) {
           let singleMessage = {}
           Message.findById(messageId, (err, message) => {
-            console.log(message)
             if (err) console.log(err)
             singleMessage.num = i + 1
             singleMessage.id = message._id
             singleMessage.content = message.content
-            singleMessage.date = message.date.toDateString()
+            singleMessage.date = message.date.toLocaleDateString()
             singleMessage.seen = message.seen
             Animal.findById(message.about, (err, animal) => {
               if (animal === null) {

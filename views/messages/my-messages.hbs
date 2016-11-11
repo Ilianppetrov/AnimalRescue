@@ -1,27 +1,11 @@
-<div class="panel-group" id="accordion">
-  {{# each messages}}
-  {{# unless this.seen}}
-  <div class="panel panel-default">
-    <div class="panel-heading unseen" data-id="{{this.id}}">
-      <h4 class="panel-title row" data-toggle="collapse" data-parent="#accordion" href="#collapse{{this.num}}">
-        <span class="col-md-2 col-md-offset-1">From: {{this.seen}}<strong>{{this.sendBy}}</strong></span>
-        <span class="col-md-2 col-md-offset-1">Regarding: <strong>{{this.about}}</strong></span>
-        <span class="col-md-2 col-md-offset-3"> Date: <strong>{{this.date}}</strong></span>
-      </h4>
-    </div>
-    <div id="collapse{{this.num}}" class="panel-collapse collapse">
-      <div class="panel-body">{{this.content}}</div>
-    </div>
-  </div>
-  {{/unless}}
-  {{/each}}
-</div>
-<div class="panel-group" id="accordion2">
-  {{# each messages}}
-  {{# if this.seen}}
+<div class="messages-container">
+  <div class="panel-group" id="accordion">
+    <h4>Unread messages:</h4>
+    {{# each messages}}
+    {{# unless this.seen}}
     <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title row" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{this.num}}">
+      <div class="panel-heading unseen" data-id="{{this.id}}">
+        <h4 class="panel-title row" data-toggle="collapse" data-parent="#accordion" href="#collapse{{this.num}}">
           <span class="col-md-2 col-md-offset-1">From: <strong>{{this.sendBy}}</strong></span>
           <span class="col-md-2 col-md-offset-1">Regarding: <strong>{{this.about}}</strong></span>
           <span class="col-md-2 col-md-offset-3"> Date: <strong>{{this.date}}</strong></span>
@@ -31,6 +15,26 @@
         <div class="panel-body">{{this.content}}</div>
       </div>
     </div>
-  {{/if}}
-{{/each}}
+    {{/unless}}
+    {{/each}}
+  </div>
+  <div class="panel-group" id="accordion2">
+    <h4>Read messages:</h4>
+    {{# each messages}}
+    {{# if this.seen}}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title row" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{this.num}}">
+            <span class="col-md-2 col-md-offset-1">From: <strong>{{this.sendBy}}</strong></span>
+            <span class="col-md-2 col-md-offset-1">Regarding: <strong>{{this.about}}</strong></span>
+            <span class="col-md-2 col-md-offset-3"> Date: <strong>{{this.date}}</strong></span>
+          </h4>
+        </div>
+        <div id="collapse{{this.num}}" class="panel-collapse collapse">
+          <div class="panel-body">{{this.content}}</div>
+        </div>
+      </div>
+    {{/if}}
+  {{/each}}
+  </div>
 </div>

@@ -12,6 +12,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
   res.render('../views/users/profile')
 })
 router.get('/animals', isLoggedIn, (req, res, next) => {
+  console.log(req.user._doc.messagesReceived)
   animalArray.toArray(req.session.passport.user).then((animalsList) => {
     if (animalsList.length > 0) {
       res.render('../views/users/animals', {animals: animalsList, hasAnimals: true})

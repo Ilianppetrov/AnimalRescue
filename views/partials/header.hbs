@@ -15,10 +15,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         {{# if login}}
-        <li><a href="/message/all" role="button" aria-haspopup="true" aria-expanded="false">Messages</a></li>
+        <li>
+          <a href="/message/all" role="button" aria-haspopup="true" aria-expanded="false">Messages <span class="badge">
+            {{headerData.unreadMessages}}</span></a>
+          </li>
         {{/if}}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Management <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{# if login}}{{headerData.username}}{{else}}User Management{{/if}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             {{# if login}}
             <li><a href="/animal/add">Add animal</a></li>
