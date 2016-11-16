@@ -52,10 +52,11 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/', routes)
+
 app.use('/user', user)
 app.use('/animal', animal)
 app.use('/message', message)
+app.use('/', routes)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

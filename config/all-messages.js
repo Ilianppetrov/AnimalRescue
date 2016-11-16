@@ -3,7 +3,11 @@ let User = require('../models/user')
 let Message = require('../models/messages')
 
 
-module.exports = (id) => {
+module.exports = (id, page, limit) => {
+  page = page - 1 || 0
+  limit = limit || 10
+  let currentIndex = page * limit
+  let nextIndex = (page * limit) + limit
   return new Promise((resolve, reject) => {
     let messages = []
     User.findById(id, (err, receiver) => {
@@ -42,7 +46,8 @@ module.exports = (id) => {
                   }
                   return 0
                 })
-                resolve(messages)
+                let slicedMessages = messages.slice(currentIndex, nextIndex)
+                resolve(slicedMessages)
               }
             })
           })
