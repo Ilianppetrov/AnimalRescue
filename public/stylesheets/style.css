@@ -1,6 +1,11 @@
 .thumbnail img {
   min-height: 280px
 }
+/*.min-max {
+  display: block;
+  min-height: 280px;
+  max-height: 400px
+}*/
 #body {
   background-image: url('../images/background2.jpg');
   background-repeat: repeat
@@ -34,4 +39,23 @@
 .unseen.panel-heading {
   background-color: #337ab7;
   color: white
+}
+.response {
+  margin-right: 10px;
+  margin-bottom: 10px
+}
+.myLabel {
+    border: 2px solid #AAA;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin: 2px;
+    background: #DDD;
+    display: inline-block;
+}
+label.myLabel input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+.panel-heading {
+  cursor: pointer
 }

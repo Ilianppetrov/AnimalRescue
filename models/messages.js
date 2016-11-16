@@ -1,6 +1,7 @@
 let mongoose = require('mongoose')
 let User = require('../models/user')
 let Animal = require('../models/animal')
+let mongoosePaginate = require('mongoose-paginate')
 
 let messageSchema = new mongoose.Schema({
   content: {type: String, require: true},
@@ -10,5 +11,5 @@ let messageSchema = new mongoose.Schema({
   about: {type: mongoose.Schema.Types.ObjectId, ref: 'Animal'},
   date: {type: Date, default: Date.now}
 })
-
+messageSchema.plugin(mongoosePaginate)
 module.exports = mongoose.model('Message', messageSchema)

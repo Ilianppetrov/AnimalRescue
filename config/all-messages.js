@@ -17,7 +17,7 @@ module.exports = (id) => {
             singleMessage.num = i + 1
             singleMessage.id = message._id
             singleMessage.content = message.content
-            singleMessage.date = message.date.toLocaleDateString()
+            singleMessage.date = message.date.toLocaleString()
             singleMessage.seen = message.seen
             Animal.findById(message.about, (err, animal) => {
               if (animal === null) {
@@ -25,13 +25,23 @@ module.exports = (id) => {
               } else {
                 if (err) reject(err)
                 singleMessage.about = animal.name
+                singleMessage.aboutId = animal._id
               }
             })
             User.findById(message.sendBy, (err, sender) => {
               if (err) reject(err)
               singleMessage.sendBy = sender.username
               messages.push(singleMessage)
-              if (index === messagesReceived.length - 1) {
+              if (messages.length === messagesReceived.length) {
+                messages.sort(function (a, b) {
+                  if (a.date < b.date) {
+                    return 1
+                  }
+                  if (a.date > b.date) {
+                    return -1
+                  }
+                  return 0
+                })
                 resolve(messages)
               }
             })

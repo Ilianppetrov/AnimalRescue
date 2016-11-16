@@ -20,6 +20,11 @@ let upload = multer({storage: storage})
 // let csrfProtection = csrf()
 // router.use('/', csrfProtection)
 
+router.get('/test', (req, res, next) => {
+  Animal.find({}, (err, animals) => {
+    res.send(animals)
+  })
+})
 router.get('/profile/:id', (req, res, next) => {
   let animalId = req.params.id
   Animal.findById(animalId, (err, data) => {
@@ -27,8 +32,10 @@ router.get('/profile/:id', (req, res, next) => {
       res.render('/')
     }
     req.animalId = req.param.id
-    if (req.session.passport.user == data._doc.addedBy) {
-      return res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: false})
+    if (req.session.passport) {
+      if (req.session.passport.user == data._doc.addedBy) {
+        return res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: false})
+      }
     }
     res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: true})
   })

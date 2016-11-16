@@ -3,9 +3,11 @@
     {{#each this}}
     <div class="col-xs-12 col-md-4">  
       <div class="thumbnail clearfix">
-        <a href="/animal/profile/{{this.id}}">
-          <img class="img-responsive" src="/{{this.imagePath}}" alt="...">
-        </a>
+        <div>
+          <a href="/animal/profile/{{this.id}}" class="min-max">
+            <img class="img-responsive" src="/{{this.imagePath}}" alt="...">
+          </a>
+        </div>
         <p class="animal-name pull-left">{{this.name}}</p>
         <p class="animal-age pull-right">{{this.months}} months</p>
         <p class="animal-age pull-right">{{this.years}} years</p>
@@ -14,3 +16,26 @@
     {{/each}}
 </div>
 {{/each}}
+<div class="row">
+  <div class="col-md-3 col-md-offset-2"></div>
+  <nav aria-label="Page navigation">
+    <ul class="pagination pagination-lg">
+      {{# if previous}}
+      <li><a href="{{previousValue}}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a></li>
+      {{/if}}
+      {{# if pages}}
+      {{# each pages}}
+      <li><a href="{{this.url}}">{{this.number}}<span class="sr-only">(current)</span></a></li>
+      {{/each}}
+      {{/if}}
+      {{# if next}}
+      <li><a href="{{nextValue}}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a></li>
+      {{/if}}
+    </ul>
+  </nav>
+</div>
+</div>

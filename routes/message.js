@@ -3,15 +3,21 @@ var router = express.Router()
 let addMessage = require('../config/add-message')
 let allMessages = require('../config/all-messages')
 let changeStatus = require('../config/change-status')
+let paginate = require('express-paginate')
 
+
+router.get('/all', (req, res, next) => {
+  if (req.user._doc.messagesReceived.length === 0) {
+    return res.render('../views/messages/my-messages.hbs', {noMessages: true})
+  }
+  allMessages(req.session.passport.user).then((messages) => {
+    res.render('../views/messages/my-messages.hbs', {messages: messages, hasMessages: true})
+  })
+})
 router.post('/change/:id', (req, res, next) => {
   changeStatus(req.params.id)
   res.sendStatus(200)
-})
-router.get('/all', (req, res, next) => {
-  allMessages(req.session.passport.user).then((messages) => {
-    res.render('../views/messages/my-messages.hbs', {messages: messages})
-  })
+  res.send('yes')
 })
 router.get('/send/:id', (req, res, next) => {
   res.render('../views/messages/message-send.hbs', {id: req.params.id})

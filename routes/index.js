@@ -1,18 +1,26 @@
 var express = require('express')
 var router = express.Router()
 let Animal = require('../models/animal')
+let paginate = require('express-paginate')
 
+router.use(paginate.middleware(9, 9))
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  Animal.find({}, function (err, data) {
+  Animal.paginate({}, { page: req.query.page, limit: req.query.limit }, function (err, animals) {
     if (err) console.log(err)
     let animalChunks = []
     let chunkSize = 3
-    for (let i = 0; i < data.length; i += chunkSize) {
-      animalChunks.push(data.slice(i, i + chunkSize))
+    for (let i = 0; i < animals.docs.length; i += chunkSize) {
+      animalChunks.push(animals.docs.slice(i, i + chunkSize))
     }
-    req.session.newMessages = 30
-    res.render('index', { title: 'Hello', animals: animalChunks })
+    res.render('index', { title: 'Hello',
+     animals: animalChunks,
+     previous: res.locals.paginate.hasPreviousPages,
+     previousValue: paginate.href(req)(true),
+     next: res.locals.paginate.hasNextPages(animals.pages),
+     nextValue: paginate.href(req)(false),
+     pages: paginate.getArrayPages(req)(4, animals.pages, req.query.page)
+     })
   })
 })
 

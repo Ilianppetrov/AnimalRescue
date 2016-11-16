@@ -1,5 +1,6 @@
 let mongoose = require('mongoose')
 let User = require('./user')
+let mongoosePaginate = require('mongoose-paginate')
 let animalSchema = mongoose.Schema({
   imagePath: { type: String, require: true },
   name: { type: String, require: true },
@@ -9,5 +10,5 @@ let animalSchema = mongoose.Schema({
   added: { type: Date, default: Date.now },
   addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
-
+animalSchema.plugin(mongoosePaginate)
 module.exports = mongoose.model('Animal', animalSchema)
