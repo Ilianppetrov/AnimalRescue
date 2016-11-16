@@ -8,6 +8,9 @@ let totalMessages = require('../config/my-messages-pagination')
 
 router.use(paginate.middleware(10, 10))
 
+router.use(totalMessages)
+router.get('/', isLoggedIn)
+
 router.get('/all', (req, res, next) => {
   if (req.user._doc.messagesReceived.length === 0) {
     return res.render('../views/messages/my-messages.hbs', {noMessages: true})
@@ -19,9 +22,9 @@ router.get('/all', (req, res, next) => {
       hasMessages: true,
       previous: res.locals.paginate.hasPreviousPages,
       previousValue: paginate.href(req)(true),
-      next: res.locals.paginate.hasNextPages(2),
+      next: res.locals.paginate.hasNextPages(pageCount),
       nextValue: paginate.href(req)(false),
-      pages: paginate.getArrayPages(req)(4, 2, req.query.page)
+      pages: paginate.getArrayPages(req)(4, pageCount, req.query.page)
   })
   })
 })
@@ -51,3 +54,10 @@ router.post('/send/:id', (req, res, next) => {
 
 
 module.exports = router
+
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('/user/signin')
+}
