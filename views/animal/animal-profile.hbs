@@ -13,12 +13,23 @@
     <form action="/message/send/{{data._id}}">
       <button class="btn btn-primary">Send</button>
     </form>
-    <form action="/animal/add" method="POST" enctype="multipart/form-data">
-      <label for="images" class="myLabel">
-      <input type="file" id="images", name="images" class="form-control">
-      <span>Upload images</span>
-    </form>
     {{/if}}
   {{/if}}
 </div>
+{{# if data.images}}
+<div class="row images-selector">
+  <div class="col-md-3 col-md-offset-5 show-more-images">Show more images</div>
+</div>
+<div class="profile-images">
+  <div class="row">
+    {{# each data.images}}
+    <div class="col-xs-12 col-md-4 ">
+      <span href="#" class="thumbnail index-image-containter">
+        <img src="/{{this}}" alt="...">
+      </span>
+    </div>
+    {{/each}}
+  </div>
+</div>
+{{/if}}
 {{/if}}

@@ -59,3 +59,20 @@ label.myLabel input[type="file"] {
 .panel-title.row {
   cursor: pointer
 }
+.profile-images {
+  padding: 5px;
+  margin: 5px;
+  display: none
+}
+.profile-images-toggle {
+  display: inline-block
+}
+.show-more-images {
+  border: 1px solid black;
+  text-align: center;
+  margin-top: 5px;
+  background-color:#337ab7;
+  cursor: pointer;
+  color: white;
+  border-radius: 2px
+}

@@ -38,3 +38,7 @@ animal.load(function () {
     }
   })
 })
+
+$('.images-selector').click(() => {
+  $('.profile-images').toggleClass('profile-images-toggle')
+})
