@@ -13,6 +13,11 @@
     <form action="/message/send/{{data._id}}">
       <button class="btn btn-primary">Send</button>
     </form>
+    <form action="/animal/add" method="POST" enctype="multipart/form-data">
+      <label for="images" class="myLabel">
+      <input type="file" id="images", name="images" class="form-control">
+      <span>Upload images</span>
+    </form>
     {{/if}}
   {{/if}}
 </div>

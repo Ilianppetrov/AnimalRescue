@@ -8,7 +8,8 @@ let animalSchema = mongoose.Schema({
   years: Number,
   months: Number,
   added: { type: Date, default: Date.now },
-  addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  images: [{ type: String }]
 })
 animalSchema.plugin(mongoosePaginate)
 module.exports = mongoose.model('Animal', animalSchema)

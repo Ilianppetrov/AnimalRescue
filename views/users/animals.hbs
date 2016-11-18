@@ -5,7 +5,7 @@
       <ul class="list-group">
         <li class="list-group-item row">
           <span class="col-md-2 col-xs-2 myAnnimalsName"><strong>{{this.name}}</strong></span>
-          <span href="#" class="btn btn-primary col-md-2 col-md-offset-5 col-xs-2 col-xs-offset-5">Edit</span>
+          <a href="/animal/edit-profile/{{this._id}}" class="btn btn-primary col-md-2 col-md-offset-5 col-xs-2 col-xs-offset-5">Edit</a>
           <a href="/animal/delete/{{this._id}}" class="btn btn-danger col-md-2 col-md-offset-1 confirm-alert col-xs-2">Delete</a>
         </li>
       </ul>

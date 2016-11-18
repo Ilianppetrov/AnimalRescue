@@ -6,6 +6,7 @@ let fs = require('fs')
 let Animal = require('../models/animal')
 let User = require('../models/user')
 let addingAnimal = require('../config/add-animal')
+let addImages = require('../config/add-images')
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,11 +21,6 @@ let upload = multer({storage: storage})
 // let csrfProtection = csrf()
 // router.use('/', csrfProtection)
 
-router.get('/test', (req, res, next) => {
-  Animal.find({}, (err, animals) => {
-    res.send(animals)
-  })
-})
 router.get('/profile/:id', (req, res, next) => {
   let animalId = req.params.id
   Animal.findById(animalId, (err, data) => {
@@ -41,9 +37,11 @@ router.get('/profile/:id', (req, res, next) => {
   })
 })
 
+
 router.get('/add', (req, res, next) => {
   res.render('../views/animal/animal-add.hbs')
 })
+
 
 router.post('/add', upload.single('image'), (req, res, next) => {
   req.checkBody('name', 'Invalid name').notEmpty()
@@ -65,6 +63,8 @@ router.post('/add', upload.single('image'), (req, res, next) => {
   addingAnimal.addAnimal(req.body, req.file, req.session.passport.user)
   res.redirect('/')
 })
+
+
 router.get('/delete/:id', (req, res, next) => {
   let deleteId = req.params.id
   Animal.findByIdAndRemove(deleteId, (err, animal) => {
@@ -74,6 +74,23 @@ router.get('/delete/:id', (req, res, next) => {
     })
   })
   res.redirect('/user/animals')
+})
+
+
+router.get('/edit-profile/:id', (req, res, next) => {
+  Animal.findById(req.params.id, (err, data) => {
+    if (err) console.log(err)
+    res.render('../views/animal/animal-edit.hbs', {data: data})
+  })
+})
+
+router.post('/add-images/:id', upload.array('images', 6), (req, res, next) => {
+  addImages(req.files, req.params.id).then(message => {
+    Animal.findById(req.params.id, (err, data) => {
+      if (err) console.log(err)
+      res.render('../views/animal/animal-edit.hbs', {data: data, success: message.success, fail: message.fail, hasMessage: true})
+    })
+  })
 })
 
 
