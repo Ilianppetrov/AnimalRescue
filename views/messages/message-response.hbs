@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-6 col-xs-6 col-md-offset-2">
+    <h1>Message Response</h1>
+      {{# if hasErrors}}
+      <div class="alert alert-danger">
+        {{#each messages}}
+          <p>{{this}}</p>
+        {{/each}}
+      </div>
+      {{/if}}
+      {{# if noErrors}}
+      <div class="alert alert-success">
+          <p>{{message}}</p>
+      </div>
+      {{/if}}
+    <form action="/message/response/{{id}}/{{animalId}}" method="POST">
+      <div class="form-group">
+        <label for="content">Description</label>
+        <br>
+        <textarea name="content" id="description" cols="80" rows="10"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+</div>

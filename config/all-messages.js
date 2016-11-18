@@ -35,6 +35,7 @@ module.exports = (id, page, limit) => {
             User.findById(message.sendBy, (err, sender) => {
               if (err) reject(err)
               singleMessage.sendBy = sender.username
+              singleMessage.sendById = sender._doc._id + ''
               messages.push(singleMessage)
               if (messages.length === messagesReceived.length) {
                 messages.sort(function (a, b) {

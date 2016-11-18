@@ -18,8 +18,8 @@
         </div>
         <div id="collapse{{this.num}}" class="panel-collapse collapse clearfix">
           <div class="panel-body">{{this.content}}</div>
-          <form action="/message/send/{{data._id}}">
-            <button class="btn btn-primary pull-right response">Send</button>
+          <form action="/message/response/{{this.sendById}}/{{this.aboutId}}">
+            <button class="btn btn-primary pull-right response">Response</button>
           </form>
         </div>
       </div>
@@ -40,7 +40,7 @@
           </div>
           <div id="collapse{{this.num}}" class="panel-collapse collapse clearfix">
             <div class="panel-body">{{this.content}}</div>
-            <form action="/message/send/{{this.id}}">
+            <form action="/message/response/{{this.sendById}}/{{this.aboutId}}">
               <button class="btn btn-primary pull-right response">Response</button>
             </form>
           </div>
@@ -61,7 +61,7 @@
       {{/if}}
       {{# if pages}}
       {{# each pages}}
-      <li><a href="{{this.url}}">{{this.number}}<span class="sr-only">(current)</span></a></li>
+      <li><a href="{{this.url}}">{{this.number}}</a></li>
       {{/each}}
       {{/if}}
       {{# if next}}
