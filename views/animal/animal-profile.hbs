@@ -1,35 +1,44 @@
 {{# if data}}
-<div class="row">
-  <div class="col-xs-12 col-md-6 animalProfile">  
-    <img class="img-responsive animal-image" src="/{{data.imagePath}}" alt="">
-  </div>
-  <div class="col-xs-12 col-md-6">  
-    <p>name: {{data.name}}</p>
-    <p>Age: {{data.years}} years {{data.months}} months old</p>
-    <p>Description: {{data.description}}</p>
-  </div>
-  {{# if notOwner}}
-    {{# if login}}
-    <form action="/message/send/{{data._id}}">
-      <button class="btn btn-primary">Send</button>
-    </form>
-    {{/if}}
-  {{/if}}
-</div>
-{{# if data.images}}
-<div class="row images-selector">
-  <div class="col-md-3 col-md-offset-5 show-more-images">Show more images</div>
-</div>
-<div class="profile-images">
+<div class="profile-container">
   <div class="row">
-    {{# each data.images}}
-    <div class="col-xs-12 col-md-4 ">
-      <span href="#" class="thumbnail index-image-containter">
-        <img src="/{{this}}" alt="...">
-      </span>
+    <div class="col-xs-12 col-md-6 animalProfile">  
+      <img class="img-responsive animal-image" src="/{{data.imagePath}}" alt="">
     </div>
-    {{/each}}
+    <div class="col-xs-12 col-md-6">  
+      <p>name: {{data.name}}</p>
+      <p>Age: {{data.years}} years {{data.months}} months old</p>
+      <p>Description: {{data.description}}</p>
+    </div>
+    {{# if notOwner}}
+      {{# if login}}
+      <form action="/message/send/{{data._id}}">
+        <button class="btn btn-primary">Send</button>
+      </form>
+      {{/if}}
+    {{/if}}
+  </div>
+  {{# if data.images}}
+  <div class="row images-selector">
+    <div class="col-md-3 col-md-offset-5 show-more-images">Show more images</div>
+  </div>
+  <div class="profile-images">
+    <div class="row">
+      {{# each data.images}}
+      <div class="col-xs-12 col-md-4 ">
+        <span href="#" class="thumbnail index-image-containter">
+          <img src="/{{this}}" alt="...">
+        </span>
+      </div>
+      {{/each}}
+    </div>
   </div>
 </div>
+<div class="selected">
+  <div class="current-image">
+      <img src="#" id="current-image" />
+  </div>
+</div>
+<p id="event"></p>
 {{/if}}
 {{/if}}
+

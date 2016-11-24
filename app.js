@@ -57,9 +57,6 @@ app.use('/user', user)
 app.use('/animal', animal)
 app.use('/message', message)
 app.use('/', routes)
-app.use('*', (req, res, next) => {
-  res.send('404 not found', 404)
-})
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

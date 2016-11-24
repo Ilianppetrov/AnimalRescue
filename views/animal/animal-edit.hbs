@@ -11,29 +11,32 @@
   {{/if}}
 {{/if}}
 <div class="row">
-  <div class="col-xs-12 col-md-4 animalProfile">  
+  <div class="col-xs-12 col-md-4 animalProfile">
+    <input type="hidden" data-id={{data.id}}>
     <img class="img-responsive animal-image" src="/{{data.imagePath}}" alt="">
+    <form action="/animal/add-images/{{data.id}}" method="POST" enctype="multipart/form-data">
+      <label for="images">
+      <span>Upload images</span>
+      <input type="file" multiple="multiple" id="images", name="images" class="form-control">
+      <button type="submit" class="btn btn-primary">send</button>
+    </form>
   </div>
-  <form action="#" class="col-xs-12 col-md-8">
+  <form action="#" class="col-xs-12 col-md-8 animalForm">
     <div class="form-group">
-      <label for="name">Name</label>
-      <input type="name" name="name" value="{{data.name}}">
+      <label for="name">Name: {{data.name}} <i class="fa fa-pencil name" aria-hidden="true"></i></label>
+      <input type="text" name="name" value="{{data.name}}" class="hide">
     </div>
     <div class="form-group">
-      <label for="yeas">years</label>
-      <input type="number" name="yeas" value="{{data.years}}">
-      <label for="months">months</label>
-      <input type="number" name="months" value="{{data.months}}">
+      <label for="yeas">years: {{data.years}} <i class="fa fa-pencil name" aria-hidden="true"></i></label>
+      <input type="number" name="yeas" value="{{data.years}}" class="hide">
+      <br>
+      <label for="months">months: {{data.months}} <i class="fa fa-pencil name" aria-hidden="true"></i></label>
+      <input type="number" name="months" value="{{data.months}}" class="hide">
     </div>
     <div class="form-group">
-      <label for="description">Description</label><br>
-      <textarea name="description" id="description" cols="55" rows="10">{{data.description}}</textarea>
+      <label for="description">Description: {{data.description}} <i class="fa fa-pencil name" aria-hidden="true"></i></label>
+      <textarea name="description" id="description" cols="55" rows="10" class="hide textarea">{{data.description}} </textarea>
     </div>
-  </form>
-  <form action="/animal/add-images/{{data.id}}" method="POST" enctype="multipart/form-data">
-    <label for="images">
-    <span>Upload images</span>
-    <input type="file" multiple="multiple" id="images", name="images" class="form-control">
-    <button type="submit" class="btn btn-primary">send</button>
+    <button class="btn btn-success edit-save" id="animal-edit">Save</button>
   </form>
 </div>

@@ -7,6 +7,7 @@ let Animal = require('../models/animal')
 let User = require('../models/user')
 let addingAnimal = require('../config/add-animal')
 let addImages = require('../config/add-images')
+let editAnimal = require('../config/edit-animal')
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -21,27 +22,12 @@ let upload = multer({storage: storage})
 // let csrfProtection = csrf()
 // router.use('/', csrfProtection)
 
-router.get('/profile/:id', (req, res, next) => {
-  let animalId = req.params.id
-  Animal.findById(animalId, (err, data) => {
-    if (err) {
-      res.render('/')
-    }
-    req.animalId = req.param.id
-    if (req.session.passport) {
-      if (req.session.passport.user == data._doc.addedBy) {
-        return res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: false})
-      }
-    }
-    res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: true})
-  })
-})
 
+router.use('/', isLoggedIn)
 
 router.get('/add', (req, res, next) => {
   res.render('../views/animal/animal-add.hbs')
 })
-
 
 router.post('/add', upload.single('image'), (req, res, next) => {
   req.checkBody('name', 'Invalid name').notEmpty()
@@ -84,6 +70,11 @@ router.get('/edit-profile/:id', (req, res, next) => {
   })
 })
 
+router.post('/edit/:id', (req, res, next) => {
+  editAnimal(req.params.id, req.body)
+  res.sendStatus(200)
+})
+
 router.post('/add-images/:id', upload.array('images', 6), (req, res, next) => {
   addImages(req.files, req.params.id).then(message => {
     Animal.findById(req.params.id, (err, data) => {
@@ -94,4 +85,28 @@ router.post('/add-images/:id', upload.array('images', 6), (req, res, next) => {
 })
 
 
+router.get('/profile/:id', (req, res, next) => {
+  let animalId = req.params.id
+  Animal.findById(animalId, (err, data) => {
+    if (err) {
+      res.render('/')
+    }
+    req.animalId = req.param.id
+    if (req.session.passport) {
+      if (req.session.passport.user == data._doc.addedBy) {
+        return res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: false})
+      }
+    }
+    res.render('../views/animal/animal-profile.hbs', {data: data, notOwner: true})
+  })
+})
+
+
 module.exports = router
+
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('/user/signin')
+}
