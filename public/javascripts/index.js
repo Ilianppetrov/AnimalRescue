@@ -67,12 +67,11 @@ $profileImages.on('click touchstart', 'img', function (ev) {
     ev.preventDefault()
     return
   }
-  $('#event').text(ev.type)
   let $this = $(this)
   let imgSrc = $this.attr('src')
   let index = $this.data('info')
-  console.log(ev)
   $currentImage.attr('src', imgSrc)
+  $currentImage.attr('data-info', index)
   $selected.fadeTo('slow', 2)
   $profileContainer.addClass(' blurred')
 })
@@ -86,8 +85,6 @@ $selected.hide()
 // animal profile pictures - end
 
 // animal profile-edit form
-
-
 let animalObj = {
   changes: false
 }
@@ -99,9 +96,12 @@ $('.animalForm').on('change', function (ev) {
   animalObj.changes = true
 })
 
-$('.animalForm').on('click', '.fa.fa-pencil.name', function (ev) {
+$('.animalForm').on('click', '.fa.fa-pencil', function (ev) {
   let $this = $(ev.target)
-  $this.parent().next().removeClass('hide')
+  console.log($this)
+  $this.prev().hide(() => {
+    $this.parent().next().removeClass('hide')
+  })
 })
 let $hiddenId = $('input[type="hidden"]').attr('data-id')
 
@@ -130,4 +130,7 @@ $('.edit-save').click(function (ev) {
   $('.animalForm input, textarea').addClass('hide')
   ev.preventDefault()
 })
+// animal profile-edit form - end
+
+
 

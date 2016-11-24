@@ -100,15 +100,17 @@ label.myLabel input[type="file"] {
     left: 10%;
     width: 80%;
 }
-.disabled-background {
+.selected .next-image {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    background-color: black;
-    opacity: 0.3
+    top: ;
+    left: 82.8%;
+    width: 15%;
+}
+.selected .previous-image {
+    position: absolute;
+    top: 50%;
+    left: 2.2%;
+    width: 15%;
 }
 .blurred {
     -webkit-filter: blur(10px);
