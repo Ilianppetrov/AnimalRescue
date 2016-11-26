@@ -23,15 +23,7 @@ module.exports = (id, page, limit) => {
             singleMessage.content = message.content
             singleMessage.date = message.date.toLocaleString()
             singleMessage.seen = message.seen
-            Animal.findById(message.about, (err, animal) => {
-              if (animal === null) {
-                singleMessage.about = 'Deleted'
-              } else {
-                if (err) reject(err)
-                singleMessage.about = animal.name
-                singleMessage.aboutId = animal._id
-              }
-            })
+            singleMessage.about = message.about
             User.findById(message.sendBy, (err, sender) => {
               if (err) reject(err)
               singleMessage.sendBy = sender.username

@@ -8,7 +8,7 @@ let messageSchema = new mongoose.Schema({
   seen: {type: Boolean, default: false},
   sendBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   receivedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  about: {type: mongoose.Schema.Types.ObjectId, ref: 'Animal'},
+  about: String,
   date: {type: Date, default: Date.now}
 })
 messageSchema.plugin(mongoosePaginate)

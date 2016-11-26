@@ -54,10 +54,10 @@ router.post('/send/:id', (req, res, next) => {
   addMessage.addMessage(req.session.passport.user, req.params.id, req.body.content)
   res.render('../views/messages/message-send.hbs', {id: req.params.id, message: 'Message send', noErrors: true})
 })
-router.get('/response/:id/:animalId', (req, res, next) => {
-  res.render('../views/messages/message-response.hbs', {id: req.params.id, animalId: req.params.animalId})
+router.get('/response/:id/:animalName', (req, res, next) => {
+  res.render('../views/messages/message-response.hbs', {id: req.params.id, animalName: req.params.animalName})
 })
-router.post('/response/:id/:animalId', (req, res, next) => {
+router.post('/response/:id/:animalName', (req, res, next) => {
   if (!req.params.id) {
     return res.redirect('/')
   }
@@ -68,9 +68,9 @@ router.post('/response/:id/:animalId', (req, res, next) => {
     errors.forEach((error) => {
       messages.push(error.msg)
     })
-    return res.render('../views/messages/message-response.hbs', {id: req.params.id, animalId: req.params.animalId, messages: messages, hasErrors: messages.length > 0})
+    return res.render('../views/messages/message-response.hbs', {id: req.params.id, animalName: req.params.animalName, messages: messages, hasErrors: messages.length > 0})
   }
-  addMessage.addResponse(req.session.passport.user, req.params.animalId, req.params.id, req.body.content)
+  addMessage.addResponse(req.session.passport.user, req.params.animalName, req.params.id, req.body.content)
   res.render('../views/messages/message-send.hbs', {id: req.params.id, animalId: req.params.animalId, message: 'Message send', noErrors: true})
 })
 

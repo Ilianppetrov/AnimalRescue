@@ -7,7 +7,7 @@ let Animal = require('../models/animal')
 let User = require('../models/user')
 let addingAnimal = require('../config/add-animal')
 let addImages = require('../config/add-images')
-let editAnimal = require('../config/edit-animal')
+let animalEdit = require('../config/edit-animal')
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -70,11 +70,19 @@ router.get('/edit-profile/:id', (req, res, next) => {
   })
 })
 
-router.post('/edit/:id', (req, res, next) => {
-  editAnimal(req.params.id, req.body)
+router.post('/edit/details/:id', (req, res, next) => {
+  animalEdit.editAnimal(req.params.id, req.body)
   res.sendStatus(200)
 })
 
+router.post('/edit/picture/:id', (req, res, next) => {
+  animalEdit.deletePicture(req.params.id, req.body)
+  res.sendStatus(200)
+})
+router.post('/edit/changePicture/:id', (req, res, next) => {
+  animalEdit.changePicture(req.params.id, req.body)
+  res.sendStatus(200)
+})
 router.post('/add-images/:id', upload.array('images', 6), (req, res, next) => {
   addImages(req.files, req.params.id).then(message => {
     Animal.findById(req.params.id, (err, data) => {

@@ -12,8 +12,8 @@
         <div class="panel-heading unseen" data-id="{{this.id}}">
           <h4 class="panel-title row" data-toggle="collapse" data-parent="#accordion" href="#collapse{{this.num}}">
             <span class="col-md-2 col-md-offset-1">From: <strong>{{this.sendBy}}</strong></span>
-            <span class="col-md-3 col-md-offset-1 hidden-sm">Regarding: <strong>{{this.about}}</strong></span>
-            <span class="col-md-3 col-md-offset-2"> Date: <strong>{{this.date}}</strong></span>
+            <span class="col-md-3 col-md-offset-1">Regarding: <strong>{{this.about}}</strong></a></span>
+            <span class="col-md-3 col-md-offset-2 hidden-sm-12"> Date: <strong>{{this.date}}</strong></span>
           </h4>
         </div>
         <div id="collapse{{this.num}}" class="panel-collapse collapse clearfix">
@@ -31,16 +31,16 @@
       {{# each messages}}
       {{# if this.seen}}
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading messave-hover">
             <h4 class="panel-title row" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{this.num}}">
-              <span class="col-md-2 col-md-offset-1">From: <strong>{{this.sendBy}}</strong></span>
-              <span class="col-md-2 col-md-offset-1">Regarding: <strong>{{this.about}}</strong></span>
-              <span class="col-md-3 col-md-offset-3 col-xs-offset-3"> Date: <strong>{{this.date}}</strong></span>
+              <span class="col-xs-4 col-md-2 col-md-offset-1">From: <strong>{{this.sendBy}}</strong></span>
+              <span class="col-xs-4 col-md-2 col-md-offset-1">Regarding: <strong>{{this.about}}</strong></span>
+              <span class="hidden-xs col-md-3 col-md-offset-3"> Date: <strong>{{this.date}}</strong></span>
             </h4>
           </div>
           <div id="collapse{{this.num}}" class="panel-collapse collapse clearfix">
             <div class="panel-body">{{this.content}}</div>
-            <form action="/message/response/{{this.sendById}}/{{this.aboutId}}">
+            <form action="/message/response/{{this.sendById}}/{{this.about}}">
               <button class="btn btn-primary pull-right response">Response</button>
             </form>
           </div>

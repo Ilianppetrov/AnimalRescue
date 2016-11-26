@@ -14,6 +14,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span id="search-button">Search</span></a></li>
         {{# if login}}
         <li>
           <a href="/message/all" role="button" aria-haspopup="true" aria-expanded="false">Messages <span class="badge">
@@ -39,3 +40,10 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div id="searchQuery">
+  <form class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+  <input type="text" class="form-control" placeholder="Search by Name">
+  </div>
+</form>
+</div>

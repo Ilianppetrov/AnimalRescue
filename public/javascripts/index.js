@@ -108,19 +108,22 @@ let $hiddenId = $('input[type="hidden"]').attr('data-id')
 $('.edit-save').click(function (ev) {
   if (animalObj.changes === true) {
     delete animalObj.changes
-    $.ajax(`/animal/edit/${$hiddenId}`, {
+    $.ajax(`/animal/edit/details/${$hiddenId}`, {
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(animalObj),
       headers: {},
       success: function (data) {
-        if ($('.alert.alert-success').length > 0) {
-          return
-        }
         let $div = $('<div></div>')
+        $div.attr('id', 'save-message')
         $div.addClass('alert alert-success')
         $div.html('Changes saved')
         $('.animalForm').prepend($div)
+        (function () {
+          setTimeout(function () {
+            $('#save-message').hide('slow')
+          }, 2000)
+        }())
       },
       error: function (err) {
         console.log(err)
@@ -128,9 +131,61 @@ $('.edit-save').click(function (ev) {
     })
   }
   $('.animalForm input, textarea').addClass('hide')
+  $('#span-name').text($('input[name="name"]').val())
+  $('#span-years').text($('input[name="years"]').val())
+  $('#span-months').text($('input[name="months"]').val())
+  $('#span-desc').text($('textarea[name="description"]').val())
+  $('.fa.fa-pencil').prev().show()
   ev.preventDefault()
 })
+
+$('.image-edit-button').click((ev) => {
+  if (!confirm ('are you sure you want to delete?')) {
+    ev.preventDefault()
+  }
+  let $this = $(ev.target)
+  let $imagePath = $this.parent().find('img').attr('src').substring(1)
+  let imageObj = { path: $imagePath }
+  $.ajax(`/animal/edit/picture/${$hiddenId}`, {
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(imageObj),
+    headers: {},
+    success: function () {
+      $this.parent().remove()
+    },
+    error: function (err) {
+      console.log(err)
+    }
+  })
+})
+
+$('.image-change-button').click((ev) => {
+  if (!confirm ('are you sure you want to set this image?')) {
+    ev.preventDefault()
+  }
+  let $this = $(ev.target)
+  let $imagePath = $this.parent().find('img').attr('src').substring(1)
+  let imageObj = { path: $imagePath }
+  $.ajax(`/animal/edit/changePicture/${$hiddenId}`, {
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(imageObj),
+    headers: {},
+    success: function () {
+
+    },
+    error: function (err) {
+      console.log(err)
+    }
+  })
+})
+
 // animal profile-edit form - end
 
+// search Query
 
+$('#search-button').parent().click(() => {
+  $('#searchQuery').slideToggle()
+})
 

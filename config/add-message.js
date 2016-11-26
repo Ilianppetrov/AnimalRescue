@@ -15,7 +15,7 @@ module.exports = {
     })
     Animal.findById(animalId, (err, animal) => {
       if (err) console.log(err)
-      message.about = animal
+      message.about = animal.name
       User.findById(animal.addedBy, (err, receiver) => {
         if (err) console.log(err)
         receiver.messagesReceived.push(message)
@@ -26,7 +26,7 @@ module.exports = {
       })
     })
   },
-  addResponse: (senderId, animalId, receiverId, content) => {
+  addResponse: (senderId, animalName, receiverId, content) => {
     let message = new Message({
       content: content
     })
@@ -36,17 +36,14 @@ module.exports = {
       sender.save()
       message.sendBy = sender
     })
-    Animal.findById(animalId, (err, animal) => {
+    message.about = animalName
+    User.findById(receiverId, (err, receiver) => {
       if (err) console.log(err)
-      message.about = animal
-      User.findById(receiverId, (err, receiver) => {
-        if (err) console.log(err)
-        receiver.messagesReceived.push(message)
-        receiver.unreadMessages += 1
-        receiver.save()
-        message.receivedBy = receiver
-        message.save()
-      })
+      receiver.messagesReceived.push(message)
+      receiver.unreadMessages += 1
+      receiver.save()
+      message.receivedBy = receiver
+      message.save()
     })
   }
 }

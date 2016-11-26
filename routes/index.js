@@ -6,7 +6,8 @@ let paginate = require('express-paginate')
 router.use(paginate.middleware(9, 9))
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  Animal.paginate({}, { page: req.query.page, limit: req.query.limit }, function (err, animals) {
+  
+  Animal.paginate({years: { $gte: 0, $lt: 2 }}, { page: req.query.page, limit: req.query.limit, sort: { added: -1 } }, function (err, animals) {
     if (err) console.log(err)
     let animalChunks = []
     let chunkSize = 3
