@@ -123,11 +123,6 @@ i.fa.fa-pencil.name {
 .textarea {
   display: block
 }
-
-.image-edit-container:hover {
-  transform: scale(1.1);
-  cursor: pointer
-}
 .thumbnail.hoover:hover {
   transform: scale(1.1)
 }

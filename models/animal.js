@@ -9,7 +9,8 @@ let animalSchema = mongoose.Schema({
   months: Number,
   added: { type: Date, default: Date.now },
   addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  images: [{ type: String }]
+  images: [{ type: String }],
+  adopted: { type: Boolean, default: false }
 })
 animalSchema.plugin(mongoosePaginate)
 module.exports = mongoose.model('Animal', animalSchema)

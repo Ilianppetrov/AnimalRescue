@@ -41,9 +41,13 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div id="searchQuery">
-  <form class="navbar-form navbar-left" role="search">
+  <form class="navbar-form navbar-left" role="search" action="/" method="GET">
   <div class="form-group">
-  <input type="text" class="form-control" placeholder="Search by Name">
+  <input type="text" placeholder="Search by Name" name="name" id="name">
   </div>
+  <div class="form-group">
+    Adopted: <input type="checkbox" name="adopted">
+  </div>
+  <button type="submit">Search</button>
 </form>
 </div>

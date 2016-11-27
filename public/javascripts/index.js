@@ -173,7 +173,10 @@ $('.image-change-button').click((ev) => {
     data: JSON.stringify(imageObj),
     headers: {},
     success: function () {
-
+      let $currentImageSrc = $('.animalProfile').find('img').attr('src')
+      let $originalImageSec = $this.parent().find('img').attr('src')
+      $('.animalProfile').find('img').attr('src', $originalImageSec)
+      $this.parent().find('img').attr('src', $currentImageSrc)
     },
     error: function (err) {
       console.log(err)

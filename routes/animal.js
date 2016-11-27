@@ -93,6 +93,7 @@ router.post('/add-images/:id', upload.array('images', 6), (req, res, next) => {
 })
 
 
+
 router.get('/profile/:id', (req, res, next) => {
   let animalId = req.params.id
   Animal.findById(animalId, (err, data) => {
