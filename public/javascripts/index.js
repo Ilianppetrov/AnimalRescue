@@ -48,15 +48,17 @@ let $profileContainer = $('.profile-container')
 let $disabled = $('#disabled')
 
 $imageSelector.click(() => {
-  $profileImages.addClass('profile-images-add')
+  $profileImages.addClass(' profile-images-add')
 })
 
 $imageSelector.click(() => {
   let images = $profileImages.find('img')
-  $profileImages.addClass('profile-images-add')
+  $profileImages.addClass(' profile-images-add')
   let dataInfo = 1
   images.each(function () {
     $(this).attr('data-info', dataInfo)
+    let $imageSrc = $(this).attr('data-src')
+    $(this).attr('src', $imageSrc)
     dataInfo += 1
   })
   $imageSelector.remove()
@@ -191,4 +193,15 @@ $('.image-change-button').click((ev) => {
 $('#search-button').parent().click(() => {
   $('#searchQuery').slideToggle()
 })
+
+// pagination active state
+
+let currentPage = JSON.parse('{"' + decodeURI(window.location.search.substring(1)).replace(/"/g, '\\"').replace(/=/g, '":"').replace(/&/, '","') + '"}')
+let $page = $('.pagination ').find('li a')
+for (let i = 0; i < $page.length; i++) {
+  if ($page[i].text == currentPage.page) {
+    let parentPage = $page[i].parentNode
+    parentPage.className += ' active'
+  }
+}
 

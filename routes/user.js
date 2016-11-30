@@ -11,7 +11,7 @@ router.use('/', csrfProtection)
 router.get('/profile', isLoggedIn, (req, res, next) => {
   res.render('../views/users/profile')
 })
-router.get('/animals', isLoggedIn, (req, res, next) => {
+router.get('/animals/list', isLoggedIn, (req, res, next) => {
   animalArray.toArray(req.session.passport.user).then((animalsList) => {
     if (animalsList.length > 0) {
       res.render('../views/users/animals', {animals: animalsList, hasAnimals: true})
@@ -20,6 +20,7 @@ router.get('/animals', isLoggedIn, (req, res, next) => {
     }
   })
 })
+
 router.get('/logout', isLoggedIn, (req, res, next) => {
   req.logout()
   res.redirect('/')

@@ -1,5 +1,6 @@
 {{#each animals}}
 <div class="row">
+   {{current}}
     {{#each this}}
     <div class="col-xs-12 col-md-4">  
       <div class="thumbnail clearfix hoover">
@@ -25,11 +26,9 @@
           <span aria-hidden="true">&laquo;</span>
         </a></li>
       {{/if}}
-      {{# if pages}}
       {{# each pages}}
-      <li><a href="{{this.url}}">{{this.number}}<span class="sr-only">(current)</span></a></li>
+      <li><a href="{{this.url}}">{{this.number}}</a></li>
       {{/each}}
-      {{/if}}
       {{# if next}}
       <li><a href="{{nextValue}}" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>

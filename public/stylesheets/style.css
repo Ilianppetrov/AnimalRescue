@@ -124,7 +124,8 @@ i.fa.fa-pencil.name {
   display: block
 }
 .thumbnail.hoover:hover {
-  transform: scale(1.1)
+  transform: scale(1.1);
+  cursor: pointer;
 }
 .messave-hover:hover {
   background-color: lightgrey

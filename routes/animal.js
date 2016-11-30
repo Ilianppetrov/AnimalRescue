@@ -2,12 +2,12 @@ var express = require('express')
 var router = express.Router()
 // let csrf = require('csurf')
 let multer = require('multer')
-let fs = require('fs')
 let Animal = require('../models/animal')
-let User = require('../models/user')
 let addingAnimal = require('../config/add-animal')
 let addImages = require('../config/add-images')
 let animalEdit = require('../config/edit-animal')
+let resizeImages = require('../config/image-editor')
+
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -32,6 +32,7 @@ router.get('/add', (req, res, next) => {
 router.post('/add', upload.single('image'), (req, res, next) => {
   req.checkBody('name', 'Invalid name').notEmpty()
   req.checkBody('description', 'Description not enough').isLength({min: 10})
+  resizeImages.editSingleImage('public/images/' + req.file.filename)
   let errors = req.validationErrors()
   if (errors) {
     let messages = []
@@ -52,16 +53,14 @@ router.post('/add', upload.single('image'), (req, res, next) => {
 
 
 router.get('/delete/:id', (req, res, next) => {
-  let deleteId = req.params.id
-  Animal.findByIdAndRemove(deleteId, (err, animal) => {
-    if (err) console.log(err)
-    fs.unlink('public\\' + animal.imagePath, (err, result) => {
-      if (err) console.log(err)
-    })
-  })
+  animalEdit.deleteAnimal(req.params.id)
   res.redirect('/user/animals')
 })
 
+router.get('/adopted/:id', (req, res, next) => {
+  animalEdit.adoptedAnimal(req.params.id)
+  res.redirect('/user/animals')
+})
 
 router.get('/edit-profile/:id', (req, res, next) => {
   Animal.findById(req.params.id, (err, data) => {
@@ -83,7 +82,11 @@ router.post('/edit/changePicture/:id', (req, res, next) => {
   animalEdit.changePicture(req.params.id, req.body)
   res.sendStatus(200)
 })
+router.get('/add-images/:id', (req, res, next) => {
+  res.redirect('/animal/edit-profile/:id')
+})
 router.post('/add-images/:id', upload.array('images', 6), (req, res, next) => {
+  resizeImages.editMultipleImages(req.files)
   addImages(req.files, req.params.id).then(message => {
     Animal.findById(req.params.id, (err, data) => {
       if (err) console.log(err)
@@ -91,8 +94,6 @@ router.post('/add-images/:id', upload.array('images', 6), (req, res, next) => {
     })
   })
 })
-
-
 
 router.get('/profile/:id', (req, res, next) => {
   let animalId = req.params.id

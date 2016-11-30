@@ -33,6 +33,24 @@ module.exports = {
         animal.save()
       }
     })
+  },
+  deleteAnimal: (id) => {
+    Animal.findByIdAndRemove(id, (err, animal) => {
+      if (err) console.log(err)
+      fs.unlink('public\\' + animal.imagePath, (err, result) => {
+        if (err) console.log(err)
+      })
+      animal.images.forEach((image) => {
+        fs.unlink('public\\' + image, (err, result) => {
+          if (err) console.log(err)
+        })
+      })
+    })
+  },
+  adoptedAnimal: (id) => {
+    Animal.findByIdAndUpdate(id, {adopted: true}, (err) => {
+      if (err) console.log(err)
+    })
   }
 }
 

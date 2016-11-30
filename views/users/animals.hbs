@@ -1,15 +1,17 @@
 {{# if hasAnimals}}
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-2">
       {{#each animals}}
+      {{# unless this.adopted}}
       <ul class="list-group">
         <li class="list-group-item row">
           <span class="col-md-2 col-xs-2 myAnnimalsName"><strong>{{this.name}}</strong></span>
-          <a href="#" class="btn btn-success col-md-2 col-md-offset-3 col-xs-3 col-xs-offset-2">Adopted</a>
+          <a href="/animal/adopted/{{this.id}}" class="btn btn-success col-md-2 col-md-offset-3 col-xs-3 col-xs-offset-2">Adopted</a>
           <a href="/animal/edit-profile/{{this._id}}" class="btn btn-primary col-md-2 col-xs-3">Edit</a>
           <a href="/animal/delete/{{this._id}}" class="btn btn-danger col-md-2 confirm-alert col-xs-2">Delete</a>
         </li>
       </ul>
+      {{/unless}}
       {{/each}}
    </div>
   </div>

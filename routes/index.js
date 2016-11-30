@@ -18,6 +18,7 @@ router.get('/', (req, res, next) => {
       res.render('index', { title: 'Hello',
       animals: animalChunks,
       previous: res.locals.paginate.hasPreviousPages,
+      current: req.query.page,
       previousValue: paginate.href(req)(true),
       next: res.locals.paginate.hasNextPages(animals.pages),
       nextValue: paginate.href(req)(false),
